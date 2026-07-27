@@ -87,6 +87,7 @@
 
   /* EXPERIENCE big photo blocks */
   .exp-block{display:grid;grid-template-columns:1.1fr 0.9fr;gap:0;align-items:stretch;min-height:520px;}
+  .exp-block + .exp-block{border-top:1px solid var(--gold);}
   .exp-block.rev{grid-template-columns:0.9fr 1.1fr;}
   .exp-block.rev .exp-visual{order:2;}
   @media(max-width:860px){.exp-block,.exp-block.rev{grid-template-columns:1fr;min-height:auto;} .exp-block.rev .exp-visual{order:0;}}
@@ -102,7 +103,7 @@
   .form-section{background:var(--ink);color:#fff;}
   .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
   @media(max-width:820px){.form-grid{grid-template-columns:1fr;}}
-  .form-grid h2{color:#fff;}
+  .form-grid h2{color:#fff;font-size:clamp(2.2rem,4.4vw,3.4rem);}
   .form-grid .eyebrow{color:var(--gold);}
   .form-grid p.lead{color:rgba(255,255,255,0.78);margin-top:16px;max-width:50ch;font-size:1.08rem;}
   .form-grid p.lead strong{color:#fff;font-weight:700;}
@@ -165,7 +166,7 @@
 </header>
 
 <section class="hero">
-  <img src="IMG_6489.JPG.jpeg" alt="">
+  <img src="F686C5B9-EA05-468F-8497-D7E5298481E0.JPG.jpeg" alt="">
   <div class="scrim"></div>
   <div class="hero-content wrap">
     <div class="hero-grid">
@@ -242,6 +243,20 @@
     <p>Go beyond the tourist hotspots and experience <strong>the Phuket most visitors never see</strong>. Having lived in Thailand for over seven years, we'll take you to our favorite beaches, viewpoints, cafés and hidden gems.</p>
   </div>
   <div class="exp-visual"><img src="IMG_6487.PNG" alt=""></div>
+</div>
+<div class="exp-block rev" id="coach">
+  <div class="exp-copy">
+    <p class="eyebrow">04 — Meet Your Coach</p>
+    <h3>Paloma Arranz.</h3>
+    <p>Every session on camp is personally overseen by Paloma, a Spanish professional Muay Thai and kickboxing athlete <strong>living and fighting out of Phuket</strong>. Training under Leo Elias at Phuket Fight Club, she's won two Muay Thai world titles and is currently ranked #4 in the world by the WBC.</p>
+    <div class="hero-stats">
+      <div><div class="num">2×</div><div class="lbl">World Champion</div></div>
+      <div><div class="num">#4</div><div class="lbl">WBC Ranking</div></div>
+      <div><div class="num">20</div><div class="lbl">Pro Fights</div></div>
+      <div><div class="num">7+</div><div class="lbl">Years in Phuket</div></div>
+    </div>
+  </div>
+  <div class="exp-visual"><img src="paloma-arranz.jpg" alt="Paloma Arranz, Muay Thai World Champion and camp coach" style="object-position:20% center;"></div>
 </div>
 
 <section id="flow">
