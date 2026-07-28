@@ -24,7 +24,7 @@
   .eyebrow{font-family:'Inter',sans-serif;text-transform:uppercase;letter-spacing:0.18em;font-size:0.72rem;font-weight:700;color:var(--gold-deep);}
   a{color:inherit;} img{max-width:100%;display:block;}
   .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
-  @media(max-width:640px){.wrap{padding:0 20px;}}
+  @media(max-width:640px){.wrap{padding:0 24px;}}
 
   header.nav{position:sticky;top:0;z-index:50;background:rgba(17,16,16,0.92);backdrop-filter:blur(10px);}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 32px;max-width:var(--maxw);margin:0 auto;}
@@ -55,9 +55,11 @@
   .hero-stats{display:flex;gap:36px;margin-top:44px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.25);padding-top:24px;}
   .hero-stats .num{font-family:'Big Shoulders Display',sans-serif;font-size:2rem;color:var(--gold);}
   .hero-stats .lbl{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.65);margin-top:2px;}
+  @media(max-width:640px){.hero{min-height:0;background:var(--ink);padding-bottom:32px;} .hero img{height:70vw;object-position:center;} .hero-content{padding-left:24px;padding-right:24px;} .hero-form-card{display:none;} .hero-sub{margin-top:50px;} .hero-grid>div{min-width:0;} .hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,max-content));justify-content:center;row-gap:22px;column-gap:56px;justify-items:start;} .hero-stats>div{min-width:0;} .hero-stats .num{font-size:2.3rem;} .hero-stats .lbl{font-size:0.8rem;color:#fff;font-weight:700;}}
 
   section{padding:88px 0;}
   .section-head{max-width:680px;margin-bottom:44px;}
+  @media(max-width:640px){#included{padding-top:48px;padding-bottom:44px;} #flow{padding-top:48px;}}
   .section-head h2{font-size:clamp(2.2rem,4.4vw,3.4rem);margin-top:10px;}
   .section-head p{color:#55524c;margin-top:16px;font-size:1.12rem;max-width:56ch;}
   .section-head p strong{color:var(--ink);font-weight:700;}
@@ -82,8 +84,14 @@
     .m1,.m2,.m3,.m4,.m5,.m6{grid-column:span 1;grid-row:span 1;}
     .m1{grid-column:span 2;grid-row:span 2;}
   }
+  @media(max-width:640px){
+    .mosaic{grid-template-columns:1fr;grid-auto-rows:220px;}
+    .m1,.m2,.m3,.m4,.m5,.m6{grid-column:span 1;grid-row:span 1;}
+    .mos-item .tint{background:linear-gradient(0deg, rgba(10,9,8,0.96) 0%, rgba(10,9,8,0) 82%);}
+  }
 
   .insider-note{margin-top:36px;padding-top:28px;border-top:1px solid var(--line-dark);font-family:'Big Shoulders Display',sans-serif;text-transform:uppercase;font-weight:700;font-size:1.3rem;letter-spacing:0.01em;color:var(--ink);max-width:52ch;}
+  @media(max-width:640px){.insider-note{font-size:1.5rem;}}
 
   /* EXPERIENCE big photo blocks */
   .exp-block{display:grid;grid-template-columns:1.1fr 0.9fr;gap:0;align-items:stretch;min-height:520px;}
@@ -130,6 +138,7 @@
 
   /* QUOTE full bleed */
   .quote{position:relative;min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;overflow:hidden;}
+  @media(max-width:640px){.quote{min-height:38vh;}}
   .quote img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
   .quote .scrim{position:absolute;inset:0;background:rgba(10,9,8,0.62);}
   .quote-inner{position:relative;z-index:2;max-width:760px;padding:0 24px;}
@@ -154,6 +163,12 @@
   .footer-brand img{height:56px;width:56px;border-radius:50%;object-fit:cover;}
   .footer-brand span{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:1.1rem;}
   footer .fine{color:rgba(255,255,255,0.5);font-size:0.8rem;}
+
+  /* SCROLL SNAP between sections (mobile only) */
+  @media(max-width:640px){
+    html{scroll-snap-type:y proximity;}
+    .hero,#included,.exp-block,#flow,.quote,#dates,.form-section,footer{scroll-snap-align:start;scroll-margin-top:84px;}
+  }
 </style>
 </head>
 <body>
@@ -341,6 +356,39 @@
   }
   wireForm('loma-form', 'form-success');
   wireForm('loma-form-hero', 'form-success-hero');
+
+  if(window.matchMedia('(max-width:640px)').matches){
+    const flowScroll = document.querySelector('.flow-scroll');
+    if(flowScroll){
+      let cancelled = false;
+      ['wheel','touchstart','pointerdown'].forEach(function(evt){
+        flowScroll.addEventListener(evt, function(){ cancelled = true; }, {passive:true, once:true});
+      });
+      const observer = new IntersectionObserver(function(entries, obs){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            setTimeout(function(){
+              if(cancelled) return;
+              const start = flowScroll.scrollLeft;
+              const end = flowScroll.scrollWidth - flowScroll.clientWidth;
+              const duration = 12000;
+              const startTime = performance.now();
+              function step(now){
+                if(cancelled) return;
+                const t = Math.min((now - startTime) / duration, 1);
+                const eased = t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2;
+                flowScroll.scrollLeft = start + (end - start) * eased;
+                if(t < 1) requestAnimationFrame(step);
+              }
+              requestAnimationFrame(step);
+            }, 1000);
+            obs.unobserve(flowScroll);
+          }
+        });
+      }, {threshold:0.3});
+      observer.observe(flowScroll);
+    }
+  }
 </script>
 </body>
 </html>
