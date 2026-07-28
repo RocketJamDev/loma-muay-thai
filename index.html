@@ -55,7 +55,7 @@
   .hero-stats{display:flex;gap:36px;margin-top:44px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.25);padding-top:24px;}
   .hero-stats .num{font-family:'Big Shoulders Display',sans-serif;font-size:2rem;color:var(--gold);}
   .hero-stats .lbl{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.65);margin-top:2px;}
-  @media(max-width:640px){.hero{min-height:0;background:var(--ink);padding-bottom:32px;} .hero img{height:70vw;object-position:center;} .hero-content{padding-left:24px;padding-right:24px;} .hero-form-card{display:none;} .hero-sub{margin-top:50px;} .hero-grid>div{min-width:0;} .hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,max-content));justify-content:center;row-gap:22px;column-gap:56px;justify-items:start;} .hero-stats>div{min-width:0;} .hero-stats .num{font-size:2.3rem;} .hero-stats .lbl{font-size:0.8rem;color:#fff;font-weight:700;}}
+  @media(max-width:640px){.hero{min-height:0;background:var(--ink);padding-bottom:32px;} .hero img{height:70vw;object-position:center;} .hero-content{padding-left:24px;padding-right:24px;} .hero-form-card{display:none;} .hero-title{height:calc(70vw - 60px);display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:28px;} .hero-sub{margin-top:0;} .hero-grid>div{min-width:0;} .hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,max-content));justify-content:center;row-gap:22px;column-gap:56px;justify-items:start;} .hero-stats>div{min-width:0;} .hero-stats .num{font-size:2.3rem;} .hero-stats .lbl{font-size:0.8rem;color:#fff;font-weight:700;}}
 
   section{padding:88px 0;}
   .section-head{max-width:680px;margin-bottom:44px;}
@@ -163,12 +163,6 @@
   .footer-brand img{height:56px;width:56px;border-radius:50%;object-fit:cover;}
   .footer-brand span{font-family:'Big Shoulders Display',sans-serif;font-weight:800;font-size:1.1rem;}
   footer .fine{color:rgba(255,255,255,0.5);font-size:0.8rem;}
-
-  /* SCROLL SNAP between sections (mobile only) */
-  @media(max-width:640px){
-    html{scroll-snap-type:y proximity;}
-    .hero,#included,.exp-block,#flow,.quote,#dates,.form-section,footer{scroll-snap-align:start;scroll-margin-top:84px;}
-  }
 </style>
 </head>
 <body>
@@ -186,8 +180,10 @@
   <div class="hero-content wrap">
     <div class="hero-grid">
       <div>
-        <p class="eyebrow">Phuket, Thailand — 10 Days</p>
-        <h1>Train. Explore.<br><span>Evolve.</span></h1>
+        <div class="hero-title">
+          <p class="eyebrow">Phuket, Thailand — 10 Days</p>
+          <h1>Train. Explore.<br><span>Evolve.</span></h1>
+        </div>
         <p class="hero-sub">Experience Muay Thai in Thailand <strong>without the stress of planning</strong>. From the moment you arrive, we handle every detail so you can focus on training, exploring and making unforgettable memories.</p>
         <div class="hero-cta-row">
           <a href="#included" class="btn-outline">What's Included</a>
